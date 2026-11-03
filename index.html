@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mood Tracker</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🤩%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#fff;--ink:#2a2a2a;--mute:#777;--or:#f7984a;--card:#f7f0e6;--line:#45453a;--cal:#f7984a;--cell:rgba(255,255,255,.28);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1917;--ink:#f3ede6;--mute:#a79f96;--card:#2a2521;--line:#cfc6bb;--cal:#c9701f;--cell:rgba(0,0,0,.22)}}
+:root[data-theme="dark"]{--bg:#1c1917;--ink:#f3ede6;--mute:#a79f96;--card:#2a2521;--line:#cfc6bb;--cal:#c9701f;--cell:rgba(0,0,0,.22)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif}
+.w{max-width:520px;margin:0 auto;padding:22px 20px 48px}
+.dt{display:flex;align-items:center;gap:8px;color:var(--mute);font-weight:600;font-size:15px}
+.dt input{font:inherit;font-size:13px;border:1px solid var(--mute);border-radius:8px;background:transparent;color:var(--ink);padding:2px 6px}
+h1{font-size:44px;line-height:1.1;margin:14px 0 2px}
+h2{font-size:22px;margin:0 0 18px}
+.em{display:flex;justify-content:space-between;gap:4px}
+.em button{flex:1;background:none;border:0;cursor:pointer;font:inherit;color:var(--mute);font-weight:600;font-size:13px;padding:4px 0;transition:transform .15s}
+.em button:active{transform:scale(.88)}
+.em span{display:block;font-size:46px;line-height:1.15}
+.tag{display:inline-block;background:var(--card);color:var(--or);font-weight:700;font-size:22px;padding:2px 22px 0;border-radius:22px 22px 0 0;margin:30px 0 -1px 4px}
+.box{background:var(--card);border-radius:28px;padding:18px}
+.jw{display:flex;align-items:center;gap:8px}
+.jar{position:relative;flex:1.5;aspect-ratio:300/280}
+.jar svg{position:absolute;inset:0;width:100%;height:100%}
+.pile{position:absolute;left:9%;right:9%;bottom:6%;height:58%;display:flex;flex-wrap:wrap-reverse;align-content:flex-start;justify-content:center;overflow:hidden}
+.pile i{font-style:normal;font-size:clamp(22px,7vw,32px);line-height:1}
+.cnt{flex:1;font-weight:700}
+.cnt h3{color:var(--or);font-size:17px;margin:0 0 6px}
+.cnt div{display:flex;align-items:center;gap:8px;font-size:20px;margin:6px 0}
+.cnt b{font-size:30px;font-weight:400}
+.cal{background:var(--cal);border-radius:28px;padding:16px 10px 20px}
+.nav{display:flex;align-items:center;justify-content:center;gap:12px;font-weight:700;font-size:20px;margin-bottom:8px}
+.nav button{background:var(--cell);border:0;border-radius:50%;width:30px;height:30px;font-size:16px;color:var(--ink);cursor:pointer}
+.g{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.g .h{font-weight:700;font-size:13px;color:#fff;opacity:.9;padding:4px 0}
+.c{min-height:56px;border-radius:12px;background:var(--cell);font-size:11px;font-weight:600;padding:3px 1px;cursor:pointer;border:2px solid transparent;color:var(--ink)}
+.c.t{border-color:#fff}.c.s{background:var(--bg)}
+.c.e{background:none;cursor:default}
+.c u{text-decoration:none;display:block;opacity:.75}
+.c span{display:block;font-size:15px;line-height:1.1;word-break:break-all}
+.ft{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--mute)}
+.ft button{font:inherit;font-weight:600;background:none;border:1px solid var(--mute);border-radius:10px;color:var(--ink);padding:4px 10px;cursor:pointer}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+#fx b{position:absolute;font-weight:400;opacity:0;animation:pop 2.1s ease-out forwards}
+@keyframes pop{0%{opacity:0;transform:translateY(40px) scale(.2)}18%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translateY(-90px) scale(1.15)}}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="dt"><span id="dl"></span><input type="date" id="di" aria-label="Pilih tanggal"></div>
+  <h1>Halo, Cald!</h1>
+  <h2>Gimana kabar hari ini?</h2>
+  <div class="em" id="em"></div>
+
+  <div class="tag">Tabungan Mood</div>
+  <div class="box"><div class="jw">
+    <div class="jar">
+      <svg viewBox="0 0 300 280" fill="none" stroke="var(--line)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M70 10Q150 2 232 10L238 28Q232 40 236 52Q150 60 66 52Q70 40 62 28Z"/><path d="M66 54Q150 60 236 54Q236 70 252 85Q268 100 270 125L272 220Q272 262 232 268Q150 276 68 268Q28 262 28 220L30 125Q32 100 48 85Q66 70 66 54Z"/></svg>
+      <div class="pile" id="pile"></div>
+    </div>
+    <div class="cnt"><h3 id="mj"></h3><div id="cn"></div></div>
+  </div></div>
+
+  <div class="tag" style="margin-top:26px;background:var(--cal);color:#fff">Kalender Mood</div>
+  <div class="cal">
+    <div class="nav"><button id="pv" aria-label="Bulan sebelumnya">‹</button><span id="mc"></span><button id="nx" aria-label="Bulan berikutnya">›</button></div>
+    <div class="g" id="gr"></div>
+  </div>
+  <div class="ft"><span id="st">Menyimpan di perangkat ini</span><button id="un">↩ Batalkan terakhir</button></div>
+</div>
+<div id="fx"></div>
+<script>
+const E=[['happy','🤩','Bahagia'],['sad','😢','Sedih'],['angry','🤬','Marah'],['sick','🤧','Sakit'],['sleepy','😪','Ngantuk']];
+const EM=Object.fromEntries(E.map(x=>[x[0],x[1]]));
+const BL=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const HR=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parse=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const $=id=>document.getElementById(id);
+let data={},sel=iso(new Date()),ref=false,timer=null;
+const todayS=()=>iso(new Date());
+
+function load(){try{const j=localStorage.getItem('cald-mood');if(j)data=JSON.parse(j)||{}}catch(e){}}
+let token=localStorage.getItem('cald-token')||'';
+async function api(method,body){
+  const r=await fetch('/api/mood',{method,headers:{'content-type':'application/json','x-token':token},body:body?JSON.stringify(body):undefined});
+  if(r.status===401){const t=prompt('Masukkan kode akses');if(t){token=t;localStorage.setItem('cald-token',t);return api(method,body)}throw new Error('auth')}
+  if(!r.ok)throw new Error('http');
+  return r.json();
+}
+function save(){
+  try{localStorage.setItem('cald-mood',JSON.stringify(data))}catch(e){}
+  if(ref){clearTimeout(timer);timer=setTimeout(()=>{api('POST',{data}).then(()=>$('st').textContent='Tersinkron ✓').catch(()=>{$('st').textContent='Gagal sinkron, tersimpan di perangkat ini'})},400)}
+}
+async function initDb(){
+  try{
+    const r=await api('GET');
+    if(r.data&&Object.keys(r.data).length){data=r.data;try{localStorage.setItem('cald-mood',JSON.stringify(data))}catch(e){}}
+    ref=true;
+    if(!(r.data&&Object.keys(r.data).length)&&Object.keys(data).length)save();
+    $('st').textContent='Tersinkron ✓';render();
+  }catch(e){}
+}
+
+function monthKey(){return sel.slice(0,7)}
+function monthItems(){const m=monthKey(),o=[];Object.keys(data).sort().forEach(d=>{if(d.startsWith(m))data[d].forEach(k=>o.push(k))});return o}
+
+function render(){
+  const d=parse(sel),m=monthKey();
+  $('dl').textContent=HR[d.getDay()]+', '+d.getDate()+' '+BL[d.getMonth()]+' '+d.getFullYear();
+  $('di').value=sel;
+  const items=monthItems();
+  $('mj').textContent=BL[d.getMonth()]+' '+d.getFullYear();
+  const cnt={};items.forEach(k=>cnt[k]=(cnt[k]||0)+1);
+  $('cn').innerHTML=E.map(x=>'<div><span style="font-size:34px">'+x[1]+'</span><b>:</b> '+(cnt[x[0]]||0)+'</div>').join('');
+  const show=items.slice(-56);
+  $('pile').innerHTML=show.map((k,i)=>'<i style="transform:rotate('+(((i*37)%31)-15)+'deg)">'+EM[k]+'</i>').join('');
+  $('mc').textContent=BL[d.getMonth()]+' '+d.getFullYear();
+  const first=new Date(d.getFullYear(),d.getMonth(),1),n=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
+  const off=(first.getDay()+6)%7;
+  let h=['Sen','Sel','Rab','Kam','Jum','Sab','Min'].map(x=>'<div class="h">'+x+'</div>').join('');
+  for(let i=0;i<off;i++)h+='<div class="c e"></div>';
+  for(let i=1;i<=n;i++){
+    const k=m+'-'+pad(i),es=(data[k]||[]).map(x=>EM[x]).join('');
+    h+='<div class="c'+(k===sel?' s':'')+(k===todayS()?' t':'')+'" data-d="'+k+'"><u>'+i+'</u><span>'+es+'</span></div>';
+  }
+  $('gr').innerHTML=h;
+}
+
+function fx(emoji){
+  const f=$('fx'),W=innerWidth,H=innerHeight;
+  for(let i=0;i<46;i++){
+    const b=document.createElement('b'),s=Math.random();
+    b.textContent=emoji;
+    b.style.fontSize=(18+Math.pow(s,2)*90)+'px';
+    b.style.left=(Math.random()*(W-40))+'px';
+    b.style.top=(Math.random()*(H-60))+'px';
+    b.style.animationDelay=(Math.random()*0.7)+'s';
+    f.appendChild(b);
+  }
+  setTimeout(()=>{f.innerHTML=''},3200);
+}
+
+function add(k){
+  (data[sel]=data[sel]||[]).push(k);
+  save();render();fx(EM[k]);
+}
+
+$('em').innerHTML=E.map(x=>'<button data-k="'+x[0]+'"><span>'+x[1]+'</span>'+x[2]+'</button>').join('');
+$('em').addEventListener('click',e=>{const b=e.target.closest('button');if(b)add(b.dataset.k)});
+$('gr').addEventListener('click',e=>{const c=e.target.closest('.c[data-d]');if(c){sel=c.dataset.d;render()}});
+$('di').addEventListener('change',e=>{if(e.target.value){sel=e.target.value;render()}});
+function shift(n){const d=parse(sel),day=d.getDate();const t=new Date(d.getFullYear(),d.getMonth()+n,1);const last=new Date(t.getFullYear(),t.getMonth()+1,0).getDate();t.setDate(Math.min(day,last));sel=iso(t);render()}
+$('pv').onclick=()=>shift(-1);$('nx').onclick=()=>shift(1);
+$('un').onclick=()=>{if(data[sel]&&data[sel].length){data[sel].pop();if(!data[sel].length)delete data[sel];save();render()}};
+
+load();render();initDb();
+</script>
+</body>
+</html>
