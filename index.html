@@ -22,33 +22,39 @@ h2{font-size:22px;margin:0 0 18px}
 .em{display:flex;justify-content:space-between;gap:4px}
 .em button{flex:1;background:none;border:0;cursor:pointer;font:inherit;color:var(--mute);font-weight:600;font-size:13px;padding:4px 0;transition:transform .15s}
 .em button:active{transform:scale(.88)}
-.em span{display:block;font-size:46px;line-height:1.15}
-.tag{display:inline-block;background:var(--card);color:var(--or);font-weight:700;font-size:22px;padding:2px 22px 0;border-radius:22px 22px 0 0;margin:30px 0 -1px 4px}
-.box{background:var(--card);border-radius:28px;padding:18px}
+.em span{display:block;line-height:1}
+.em img{width:48px;height:48px;display:block;margin:0 auto 4px;pointer-events:none}
+img{-webkit-user-drag:none;user-select:none}
+.tag{display:inline-block;position:relative;z-index:1;background:#fcf3e4;color:var(--or);font-weight:700;font-size:22px;padding:4px 24px 2px;border-radius:22px 22px 0 0;margin:30px 0 -1px 0}
+.box{--line:#45453a;color:#2a2a2a;background:linear-gradient(160deg,#fcf3e4 0%,#f8e8cf 55%,#f3d9b4 100%);border-radius:0 28px 28px 28px;padding:18px;box-shadow:0 14px 28px -10px rgba(120,70,20,.45),inset 0 1px 0 rgba(255,255,255,.7)}
 .jw{display:flex;align-items:center;gap:8px}
 .jar{position:relative;flex:1.5;min-width:0;aspect-ratio:300/280}
 .jar svg{position:absolute;inset:0;width:100%;height:100%}
 .pile{position:absolute;left:9%;right:9%;bottom:6%;height:58%;display:flex;flex-wrap:wrap-reverse;align-content:flex-start;justify-content:center;overflow:hidden}
-.pile i{font-style:normal;font-size:clamp(22px,7vw,32px);line-height:1}
+.pile i{font-style:normal;line-height:0}
+.pile i img{width:clamp(22px,7vw,32px);height:auto;display:block}
 .cnt{flex:1;min-width:0;font-weight:700}
-.cnt h3{color:var(--or);font-size:17px;margin:0 0 6px}
+.cnt h3{color:#ec7a2a;font-size:15px;margin:0 0 6px;white-space:nowrap}
 #cn div{display:flex;align-items:center;gap:8px;font-size:20px;margin:6px 0}
 #cn b{font-size:24px;font-weight:400}
-#cn span{font-size:30px!important;line-height:1}
-.cal{background:var(--cal);border-radius:28px;padding:16px 10px 20px}
-.nav{display:flex;align-items:center;justify-content:center;gap:12px;font-weight:700;font-size:20px;margin-bottom:8px}
-.nav button{background:var(--cell);border:0;border-radius:50%;width:30px;height:30px;font-size:16px;color:var(--ink);cursor:pointer}
+#cn span{line-height:0}
+#cn img{width:34px;height:34px;display:block}
+.cal{background:linear-gradient(160deg,#fba35a 0%,#f7924a 50%,#ec7a2a 100%);border-radius:0 28px 28px 28px;padding:16px 10px 20px;box-shadow:0 14px 28px -10px rgba(200,90,10,.55),inset 0 1px 0 rgba(255,255,255,.35)}
+.nav{display:flex;align-items:center;justify-content:center;gap:12px;font-weight:700;font-size:20px;margin-bottom:8px;color:#4a2a0c}
+.nav button{background:rgba(255,255,255,.3);border:0;border-radius:50%;width:30px;height:30px;font-size:16px;color:#4a2a0c;cursor:pointer}
 .g{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
 .g .h{font-weight:700;font-size:13px;color:#fff;opacity:.9;padding:4px 0}
-.c{min-height:56px;border-radius:12px;background:var(--cell);font-size:11px;font-weight:600;padding:3px 1px;cursor:pointer;border:2px solid transparent;color:var(--ink)}
-.c.t{border-color:#fff}.c.s{background:var(--bg)}
-.c.e{background:none;cursor:default}
+.c{min-height:56px;border-radius:12px;background:rgba(255,255,255,.26);font-size:11px;font-weight:600;padding:3px 1px;cursor:pointer;border:2px solid transparent;color:#4a2a0c;box-shadow:inset 0 -2px 0 rgba(150,70,0,.12)}
+.c.t{border-color:#fff}.c.s{background:#fff;box-shadow:0 4px 10px rgba(120,50,0,.3)}
+.c.e{background:none;box-shadow:none;cursor:default}
 .c u{text-decoration:none;display:block;opacity:.75}
-.c span{display:block;font-size:15px;line-height:1.1;word-break:break-all}
+.c span{display:flex;flex-wrap:wrap;justify-content:center;gap:1px}
+.c span img{width:15px;height:15px}
 .ft{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--mute)}
 .ft button{font:inherit;font-weight:600;background:none;border:1px solid var(--mute);border-radius:10px;color:var(--ink);padding:4px 10px;cursor:pointer}
 #fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
-#fx b{position:absolute;font-weight:400;opacity:0;animation:pop 2.1s ease-out forwards}
+#fx b{position:absolute;opacity:0;animation:pop 2.1s ease-out forwards}
+#fx b img{width:100%;height:auto;display:block}
 @keyframes pop{0%{opacity:0;transform:translateY(40px) scale(.2)}18%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translateY(-90px) scale(1.15)}}
 </style>
 </head>
@@ -68,7 +74,7 @@ h2{font-size:22px;margin:0 0 18px}
     <div class="cnt"><h3 id="mj"></h3><div id="cn"></div></div>
   </div></div>
 
-  <div class="tag" style="margin-top:26px;background:var(--cal);color:#fff">Kalender Mood</div>
+  <div class="tag" style="margin-top:26px;background:#fba35a;color:#fff">Kalender Mood</div>
   <div class="cal">
     <div class="nav"><button id="pv" aria-label="Bulan sebelumnya">‹</button><span id="mc"></span><button id="nx" aria-label="Bulan berikutnya">›</button></div>
     <div class="g" id="gr"></div>
@@ -81,6 +87,7 @@ const E=[['happy','🤩','Bahagia'],['sad','😢','Sedih'],['angry','🤬','Mara
 const EM=Object.fromEntries(E.map(x=>[x[0],x[1]]));
 const BL=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 const HR=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const IM=(k,c)=>'<img src="emoji/'+k+'.png" alt="" draggable="false"'+(c?' class="'+c+'"':'')+'>';
 const pad=n=>String(n).padStart(2,'0');
 const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 const parse=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
@@ -120,27 +127,27 @@ function render(){
   const items=monthItems();
   $('mj').textContent=BL[d.getMonth()]+' '+d.getFullYear();
   const cnt={};items.forEach(k=>cnt[k]=(cnt[k]||0)+1);
-  $('cn').innerHTML=E.map(x=>'<div><span style="font-size:34px">'+x[1]+'</span><b>:</b> '+(cnt[x[0]]||0)+'</div>').join('');
+  $('cn').innerHTML=E.map(x=>'<div><span>'+IM(x[0])+'</span><b>:</b> '+(cnt[x[0]]||0)+'</div>').join('');
   const show=items.slice(-56);
-  $('pile').innerHTML=show.map((k,i)=>'<i style="transform:rotate('+(((i*37)%31)-15)+'deg)">'+EM[k]+'</i>').join('');
+  $('pile').innerHTML=show.map((k,i)=>'<i style="transform:rotate('+(((i*37)%31)-15)+'deg)">'+IM(k)+'</i>').join('');
   $('mc').textContent=BL[d.getMonth()]+' '+d.getFullYear();
   const first=new Date(d.getFullYear(),d.getMonth(),1),n=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
   const off=(first.getDay()+6)%7;
   let h=['Sen','Sel','Rab','Kam','Jum','Sab','Min'].map(x=>'<div class="h">'+x+'</div>').join('');
   for(let i=0;i<off;i++)h+='<div class="c e"></div>';
   for(let i=1;i<=n;i++){
-    const k=m+'-'+pad(i),es=(data[k]||[]).map(x=>EM[x]).join('');
+    const k=m+'-'+pad(i),es=(data[k]||[]).map(x=>IM(x)).join('');
     h+='<div class="c'+(k===sel?' s':'')+(k===todayS()?' t':'')+'" data-d="'+k+'"><u>'+i+'</u><span>'+es+'</span></div>';
   }
   $('gr').innerHTML=h;
 }
 
-function fx(emoji){
+function fx(k){
   const f=$('fx'),W=innerWidth,H=innerHeight;
   for(let i=0;i<46;i++){
     const b=document.createElement('b'),s=Math.random();
-    b.textContent=emoji;
-    b.style.fontSize=(18+Math.pow(s,2)*90)+'px';
+    b.innerHTML=IM(k);
+    b.style.width=(20+Math.pow(s,2)*90)+'px';
     b.style.left=(Math.random()*(W-40))+'px';
     b.style.top=(Math.random()*(H-60))+'px';
     b.style.animationDelay=(Math.random()*0.7)+'s';
@@ -151,10 +158,10 @@ function fx(emoji){
 
 function add(k){
   (data[sel]=data[sel]||[]).push(k);
-  save();render();fx(EM[k]);
+  save();render();fx(k);
 }
 
-$('em').innerHTML=E.map(x=>'<button data-k="'+x[0]+'"><span>'+x[1]+'</span>'+x[2]+'</button>').join('');
+$('em').innerHTML=E.map(x=>'<button data-k="'+x[0]+'"><span>'+IM(x[0])+'</span>'+x[2]+'</button>').join('');
 $('em').addEventListener('click',e=>{const b=e.target.closest('button');if(b)add(b.dataset.k)});
 $('gr').addEventListener('click',e=>{const c=e.target.closest('.c[data-d]');if(c){sel=c.dataset.d;render()}});
 $('di').addEventListener('change',e=>{if(e.target.value){sel=e.target.value;render()}});
