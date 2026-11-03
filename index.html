@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mood Tracker</title>
+<title>Mood Tracker #caldave</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🤩%3C/text%3E%3C/svg%3E">
 <style>
@@ -17,8 +17,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Poppins',system
 .w{max-width:520px;margin:0 auto;padding:22px 20px 48px}
 .dt{display:flex;align-items:center;gap:8px;color:var(--mute);font-weight:600;font-size:15px}
 .dt input{font:inherit;font-size:13px;border:1px solid var(--mute);border-radius:8px;background:transparent;color:var(--ink);padding:2px 6px}
-h1{font-size:44px;line-height:1.1;margin:14px 0 2px}
-h2{font-size:22px;margin:0 0 18px}
+h1{font-size:clamp(18px,6.4vw,36px);line-height:1.15;margin:14px 0 2px;white-space:nowrap}
+h2{font-size:clamp(13px,3.9vw,19px);font-weight:600;margin:0 0 18px}
 .em{display:flex;justify-content:space-between;gap:4px}
 .em button{flex:1;background:none;border:0;cursor:pointer;font:inherit;color:var(--mute);font-weight:600;font-size:13px;padding:4px 0;transition:transform .15s}
 .em button:active{transform:scale(.88)}
@@ -52,6 +52,8 @@ img{-webkit-user-drag:none;user-select:none}
 .c span img{width:15px;height:15px}
 .ft{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--mute)}
 .ft button{font:inherit;font-weight:600;background:none;border:1px solid var(--mute);border-radius:10px;color:var(--ink);padding:4px 10px;cursor:pointer}
+#ts{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:#2a2a2a;color:#fff;font-size:13px;font-weight:600;padding:9px 16px;border-radius:20px;opacity:0;transition:.25s;pointer-events:none;z-index:60;white-space:nowrap}
+#ts.on{opacity:1;transform:translate(-50%,0)}
 #fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
 #fx b{position:absolute;opacity:0;animation:pop 2.1s ease-out forwards}
 #fx b img{width:100%;height:auto;display:block}
@@ -61,7 +63,7 @@ img{-webkit-user-drag:none;user-select:none}
 <body>
 <div class="w">
   <div class="dt"><span id="dl"></span><input type="date" id="di" aria-label="Pilih tanggal"></div>
-  <h1>Halo, Cald!</h1>
+  <h1>Halo, Cald dan Dave!</h1>
   <h2>Gimana kabar hari ini?</h2>
   <div class="em" id="em"></div>
 
@@ -82,6 +84,7 @@ img{-webkit-user-drag:none;user-select:none}
   <div class="ft"><span id="st">Menyimpan di perangkat ini</span><button id="un">↩ Batalkan terakhir</button></div>
 </div>
 <div id="fx"></div>
+<div id="ts" role="status"></div>
 <script>
 const E=[['happy','🤩','Bahagia'],['sad','😢','Sedih'],['angry','🤬','Marah'],['sick','🤧','Sakit'],['sleepy','😪','Ngantuk']];
 const EM=Object.fromEntries(E.map(x=>[x[0],x[1]]));
@@ -156,7 +159,10 @@ function fx(k){
   setTimeout(()=>{f.innerHTML=''},3200);
 }
 
+let tt=null;
+function toast(t){const e=$('ts');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
 function add(k){
+  if((data[sel]||[]).length>=4){toast('Maksimal 4 emoji per hari');return}
   (data[sel]=data[sel]||[]).push(k);
   save();render();fx(k);
 }
